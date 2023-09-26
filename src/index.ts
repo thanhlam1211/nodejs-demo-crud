@@ -6,6 +6,7 @@ import compression from 'compression';
 import cors from 'cors'
 import mongoose from 'mongoose';
 import router from './routes';
+import swaggerDocs from './utils/swagger';
 
 const app = express()
 
@@ -22,11 +23,12 @@ const server = http.createServer(app)
 server.listen(3000, () => {
     console.log('Server running on http://localhost:3000/')
 })
-
-const MONGO_URL = 'mongodb+srv://root:1234@cluster0.lslxh6g.mongodb.net/?retryWrites=true&w=majority'
+//'mongodb+srv://root:1234@cluster0.lslxh6g.mongodb.net/?retryWrites=true&w=majority'
+const MONGO_URL = 'mongodb+srv://root:1234@cluster0.31z8ktw.mongodb.net/?retryWrites=true&w=majority'
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL)
 mongoose.connection.on('error', (error: Error) => console.log(error))
 
 app.use('/', router())
+swaggerDocs(app, 3000)
